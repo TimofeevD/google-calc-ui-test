@@ -13,7 +13,7 @@ public class IEWebDriverProvider implements WebDriverProvider {
     public IEWebDriverProvider() {
         Capabilities capabilities = DesiredCapabilities.internetExplorer();
         driver = new InternetExplorerDriver(capabilities);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
 
     static {
