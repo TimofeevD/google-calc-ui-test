@@ -95,16 +95,12 @@ public abstract class AbstractGoogleCalcTest {
     }
 
     private void testExpression(String expression, String expectedResult, String expectedFormula) {
-        String result = calculateExpression(googleCalcPage, expression);
-
-        Assert.assertEquals(expectedResult, result);
-        Assert.assertEquals(expectedFormula, excludeSeparatorsFromString(googleCalcPage.getFormula()));
-    }
-
-    private String calculateExpression(GoogleCalcPage googleCalcPage, String expression) {
         googleCalcPage.clear();
         googleCalcPage.enterExpression(expression);
-        return googleCalcPage.calculate();
+        String result = googleCalcPage.calculate();
+
+        Assert.assertEquals(expectedResult, result);
+        Assert.assertEquals(excludeSeparatorsFromString(expectedFormula), excludeSeparatorsFromString(googleCalcPage.getFormula()));
     }
 
     private String excludeSeparatorsFromString(String str) {
