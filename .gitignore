@@ -1,0 +1,13 @@
+target/
+.mvn/
+.idea/*
+!.idea/runConfigurations
+.idea/runConfigurations/*
+!.idea/runConfigurations/shared___*
+*.iml
+out/
+.settings/
+.classpath
+.project
+logs/
+.DS_Store
