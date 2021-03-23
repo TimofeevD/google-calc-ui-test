@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class GoogleCalcPage extends BasePage {
 
-    public static final String SEARCH_PHRASE = "Калькулятор";
+    public static final String SEARCH_PHRASE = "Calculator";
 
     @FindBy(xpath = "//div[text()='1']")
     public WebElement one;

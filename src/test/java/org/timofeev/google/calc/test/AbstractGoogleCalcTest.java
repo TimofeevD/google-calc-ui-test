@@ -39,17 +39,19 @@ public abstract class AbstractGoogleCalcTest {
     }
 
     /**
-     * Предусловие: Открыть браузер
-     * • Открыть страницу http://google.com
-     * • В поисковую строку ввести слово “Калькулятор”
-     * • Нажать на кнопку поиска
-     * • В открывшемся калькуляторе посчитать результат выражения
+     * Case 1. Checking operations with integers
+     *
+     * Precondition: Open browser
+     * • Open the page http://google.com
+     * • In the search box, enter the word "Calculator"
+     * • Click on the search button
+     * • In the opened calculator, calculate the result of the expression
      * (1 + 2) × 3 - 40 ÷ 5
-     * Ожидаемый результат:
-     * • в строке памяти (строка над результатом) отображается ранее введенная
-     * формула «(1 + 2) × 3 - 40 ÷ 5 =»
-     * • в строке результата отображается «1»
-     * Постусловие: Закрыть браузер
+     * Expected Result:
+     * • the memory line (line above the result) displays the previously entered
+     * formula "(1 + 2) × 3 - 40 ÷ 5 ="
+     * • "1" is displayed in the result line
+     * Postcondition: Close browser
      */
     @Test
     public void validExpressionTest() {
@@ -58,16 +60,18 @@ public abstract class AbstractGoogleCalcTest {
     }
 
     /**
-     * Предусловие: Открыть браузер
-     * • Открыть страницу http://google.com
-     * • В поисковую строку ввести слово “Калькулятор”
-     * • Нажать на кнопку поиска
-     * • В открывшемся калькуляторе посчитать результат выражения 6 ÷ 0
-     * Ожидаемый результат:
-     * • в строке памяти (строка над результатом) отображается ранее введенная
-     * формула «6 ÷ 0 =»
-     * • в строке результата отображается «Infinity»
-     * Постусловие: Закрыть браузер
+     * Case 2. Checking division by zero
+     *
+     * Precondition: Open browser
+     * • Open the page http://google.com
+     * • In the search box, enter the word "Calculator"
+     * • Click on the search button
+     * • In the opened calculator, calculate the result of the expression 6 ÷ 0
+     * Expected Result:
+     * • the memory line (line above the result) displays the previously entered
+     * formula "6 ÷ 0 ="
+     * • "Infinity" is displayed in the result line
+     * Postcondition: Close browser
      */
     @Test
     public void divisionByZeroTest() {
@@ -76,17 +80,19 @@ public abstract class AbstractGoogleCalcTest {
     }
 
     /**
-     * Предусловие: Открыть браузер
-     * • Открыть страницу http://google.com
-     * • В поисковую строку ввести слово “Калькулятор”
-     * • Нажать на кнопку поиска
-     * • В открывшемся калькуляторе посчитать результат выражения sin()
-     * (вторая скобка не вводится)
-     * Ожидаемый результат:
-     * • в строке памяти (строка над результатом) отображается ранее введенная
-     * формула «sin() =»
-     * • в строке результата отображается «Error»
-     * Постусловие: Закрыть браузер
+     * Case 3. Checking an error in the absence of a value
+     *
+     * Precondition: Open browser
+     * • Open the page http://google.com
+     * • In the search box, enter the word "Calculator"
+     * • Click on the search button
+     * • In the opened calculator, calculate the result of the expression sin ()
+     * (the second parenthesis is not entered)
+     * Expected Result:
+     * • the memory line (line above the result) displays the previously entered
+     * formula "sin () ="
+     * • "Error" is displayed in the result line
+     * Postcondition: Close browser
      */
     @Test
     public void emptySinFunctionTest() {
