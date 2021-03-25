@@ -123,17 +123,10 @@ public class GoogleCalcPage extends BasePage {
     }
 
     public void clear() {
-        if (!clickToAC()) {
-            ce.click();
-        }
-    }
-
-    private boolean clickToAC() {
-        try {
+        if (ac.isDisplayed()) {
             ac.click();
-            return true;
-        } catch (Exception e) {
-            return false;
+        } else {
+            ce.click();
         }
     }
 }
