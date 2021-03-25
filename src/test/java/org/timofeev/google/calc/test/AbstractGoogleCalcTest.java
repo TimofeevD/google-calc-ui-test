@@ -58,7 +58,7 @@ public abstract class AbstractGoogleCalcTest {
      * Postcondition: Close browser
      */
     @Test
-    public void validExpressionTest() {
+    public void operationWithIntegersTest() {
         String expression = "(1 + 2) × 3 - 40 ÷ 5";
         testExpression(expression, "1", expression);
     }
