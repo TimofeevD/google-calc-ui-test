@@ -3,7 +3,7 @@ package org.timofeev.google.calc.test.pages;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
-import org.timofeev.google.calc.test.provider.WebDriverProvider;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -90,9 +90,9 @@ public class GoogleCalcPage extends BasePage {
         return elementToClickFunctionMap;
     }
 
-    public GoogleCalcPage(WebDriverProvider driverProvider) {
-        super(driverProvider);
-        PageFactory.initElements(driverProvider.getDriver(), this);
+    public GoogleCalcPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);
     }
 
     public void enterExpression(String expression) {

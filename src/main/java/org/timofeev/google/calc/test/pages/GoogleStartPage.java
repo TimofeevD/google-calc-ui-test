@@ -1,6 +1,6 @@
 package org.timofeev.google.calc.test.pages;
 
-import org.timofeev.google.calc.test.provider.WebDriverProvider;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -14,25 +14,22 @@ public class GoogleStartPage extends BasePage {
     @FindBy(name = "q")
     private WebElement searchElement;
 
-    @FindBy(name = "btnK")
-    private WebElement searchButton;
-
-    public GoogleStartPage(WebDriverProvider driverProvider) {
-        super(driverProvider);
-        PageFactory.initElements(driverProvider.getDriver(), this);
+    public GoogleStartPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);
     }
 
     public void search(String text) {
         searchElement.sendKeys(text);
-        searchButton.click();
+        searchElement.submit();
     }
 
     public GoogleCalcPage toCalculator() {
         search(SEARCH_PHRASE);
-        return new GoogleCalcPage(driverProvider);
+        return new GoogleCalcPage(driver);
     }
 
     public void navigate() {
-        driverProvider.getDriver().navigate().to(URL);
+        driver.navigate().to(URL);
     }
 }

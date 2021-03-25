@@ -1,12 +1,12 @@
 package org.timofeev.google.calc.test.pages;
 
-import org.timofeev.google.calc.test.provider.WebDriverProvider;
+import org.openqa.selenium.WebDriver;
 
 public abstract class BasePage {
 
-    protected WebDriverProvider driverProvider;
+    protected WebDriver driver;
 
-    protected BasePage(WebDriverProvider driverProvider) {
-        this.driverProvider = driverProvider;
+    protected BasePage(WebDriver driver) {
+        this.driver = driver;
     }
 }

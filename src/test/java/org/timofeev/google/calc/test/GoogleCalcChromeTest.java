@@ -1,12 +1,14 @@
 package org.timofeev.google.calc.test;
 
-import org.timofeev.google.calc.test.provider.ChromeWebDriverProviderFactory;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  * Will run all 'calculator' tests from the parent class with the Google Chrome driver
  */
 public class GoogleCalcChromeTest extends AbstractGoogleCalcTest {
     public GoogleCalcChromeTest() {
-        super(new ChromeWebDriverProviderFactory());
+        super(ChromeDriver::new);
+        WebDriverManager.chromiumdriver().setup();
     }
 }
