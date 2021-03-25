@@ -1,6 +1,5 @@
 package org.timofeev.google.calc.test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import org.junit.After;
@@ -33,8 +32,8 @@ public abstract class AbstractGoogleCalcTest {
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
         GoogleStartPage googleStartPage = new GoogleStartPage(driver);
-
         googleStartPage.navigate();
+
         googleCalcPage = googleStartPage.toCalculator();
     }
 
@@ -111,10 +110,10 @@ public abstract class AbstractGoogleCalcTest {
         String result = googleCalcPage.calculate();
 
         Assert.assertEquals(expectedResult, result);
-        Assert.assertEquals(excludeSeparatorsFromString(expectedFormula), excludeSeparatorsFromString(googleCalcPage.getFormula()));
+        Assert.assertEquals(excludeSeparators(expectedFormula), excludeSeparators(googleCalcPage.getFormula()));
     }
 
-    private String excludeSeparatorsFromString(String str) {
+    private String excludeSeparators(String str) {
         return str.replaceAll("\\s", "");
     }
 }
