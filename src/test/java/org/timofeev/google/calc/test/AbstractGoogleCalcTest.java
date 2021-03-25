@@ -107,6 +107,7 @@ public abstract class AbstractGoogleCalcTest {
     private void testExpression(String expression, String expectedResult, String expectedFormula) {
         googleCalcPage.clear();
         googleCalcPage.enterExpression(expression);
+
         String result = googleCalcPage.calculate();
 
         Assert.assertEquals(expectedResult, result);
