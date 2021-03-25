@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class GoogleCalcPage extends BasePage {
 
-    public static final String SEARCH_PHRASE = "Calculator";
+    public static final String CALCULATOR_SEARCH_PHRASE = "Calculator";
 
     @FindBy(xpath = "//div[text()='1']")
     private WebElement one;
@@ -56,10 +56,10 @@ public class GoogleCalcPage extends BasePage {
     private static WebElement equal;
 
     @FindBy(xpath = "//div[text()=\"CE\"]")
-    private static WebElement ce;
+    private static WebElement ceButton;
 
     @FindBy(xpath = "//div[text()=\"AC\"]")
-    private static WebElement ac;
+    private static WebElement acButton;
 
     @FindBy(id = "cwos")
     private static WebElement calcMainViewPort;
@@ -123,10 +123,10 @@ public class GoogleCalcPage extends BasePage {
     }
 
     public void clear() {
-        if (ac.isDisplayed()) {
-            ac.click();
+        if (acButton.isDisplayed()) {
+            acButton.click();
         } else {
-            ce.click();
+            ceButton.click();
         }
     }
 }

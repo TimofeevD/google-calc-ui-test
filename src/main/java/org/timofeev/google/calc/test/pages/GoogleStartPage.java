@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static org.timofeev.google.calc.test.pages.GoogleCalcPage.SEARCH_PHRASE;
+import static org.timofeev.google.calc.test.pages.GoogleCalcPage.CALCULATOR_SEARCH_PHRASE;
 
 public class GoogleStartPage extends BasePage {
 
@@ -25,7 +25,7 @@ public class GoogleStartPage extends BasePage {
     }
 
     public GoogleCalcPage toCalculator() {
-        search(SEARCH_PHRASE);
+        search(CALCULATOR_SEARCH_PHRASE);
         return new GoogleCalcPage(driver);
     }
 
