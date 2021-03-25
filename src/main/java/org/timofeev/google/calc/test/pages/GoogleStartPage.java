@@ -9,7 +9,7 @@ import static org.timofeev.google.calc.test.pages.GoogleCalcPage.SEARCH_PHRASE;
 
 public class GoogleStartPage extends BasePage {
 
-    public static final String URL = "http://www.google.com";
+    private static final String URL = "http://www.google.com";
 
     @FindBy(name = "q")
     private WebElement searchElement;
