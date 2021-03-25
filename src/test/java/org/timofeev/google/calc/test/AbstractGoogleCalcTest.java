@@ -1,13 +1,15 @@
 package org.timofeev.google.calc.test;
 
-import org.timofeev.google.calc.test.pages.GoogleCalcPage;
-import org.timofeev.google.calc.test.pages.GoogleStartPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.timofeev.google.calc.test.provider.WebDriverProvider;
-import org.timofeev.google.calc.test.provider.WebDriverProviderFactory;
+import org.openqa.selenium.WebDriver;
+import org.timofeev.google.calc.test.pages.GoogleCalcPage;
+import org.timofeev.google.calc.test.pages.GoogleStartPage;
 
 /**
  * Basic suite for testing google calculator.
@@ -15,19 +17,22 @@ import org.timofeev.google.calc.test.provider.WebDriverProviderFactory;
  */
 public abstract class AbstractGoogleCalcTest {
 
-    private final WebDriverProviderFactory providerFactory;
+    protected WebDriver driver;
 
-    private WebDriverProvider driverProvider;
+    private final Supplier<WebDriver> driverSupplier;
+
     private GoogleCalcPage googleCalcPage;
 
-    public AbstractGoogleCalcTest(WebDriverProviderFactory providerFactory) {
-        this.providerFactory = providerFactory;
+    public AbstractGoogleCalcTest(Supplier<WebDriver> driverSupplier) {
+        this.driverSupplier = driverSupplier;
     }
 
     @Before
     public void beforeTest() {
-        driverProvider = providerFactory.createWebDriverProvider();
-        GoogleStartPage googleStartPage = new GoogleStartPage(driverProvider);
+        driver = driverSupplier.get();
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+        GoogleStartPage googleStartPage = new GoogleStartPage(driver);
 
         googleStartPage.navigate();
         googleCalcPage = googleStartPage.toCalculator();
@@ -35,7 +40,7 @@ public abstract class AbstractGoogleCalcTest {
 
     @After
     public void afterTests() {
-        driverProvider.getDriver().quit();
+        driver.quit();
     }
 
     /**
