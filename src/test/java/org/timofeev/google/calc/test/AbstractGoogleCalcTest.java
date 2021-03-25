@@ -1,6 +1,7 @@
 package org.timofeev.google.calc.test;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import org.junit.After;
 import org.junit.Assert;
@@ -58,9 +59,15 @@ public abstract class AbstractGoogleCalcTest {
      * Postcondition: Close browser
      */
     @Test
-    public void operationWithIntegersTest() {
-        String expression = "(1 + 2) × 3 - 40 ÷ 5";
-        testExpression(expression, "1", expression);
+    public void operationWithIntegersMouseInputTest() {
+        String expression = "(1 + 2) * 3 - 40 / 5";
+        testExpression(expression, "1", expression, googleCalcPage::calculateWithMouseInput);
+    }
+
+    @Test
+    public void operationWithIntegersKeyboardInputTest() throws InterruptedException {
+        String expression = "(1 + 2) * 3 - 40 / 5";
+        testExpression(expression, "1", expression, googleCalcPage::calculateWithKeyboardInput);
     }
 
     /**
@@ -78,9 +85,15 @@ public abstract class AbstractGoogleCalcTest {
      * Postcondition: Close browser
      */
     @Test
-    public void divisionByZeroTest() {
-        String expression = "6 ÷ 0";
-        testExpression(expression, "Infinity", expression);
+    public void divisionByZeroMouseInputTest() {
+        String expression = "6 / 0";
+        testExpression(expression, "Infinity", expression, googleCalcPage::calculateWithMouseInput);
+    }
+
+    @Test
+    public void divisionByZeroKeyboardInputTest() {
+        String expression = "6 / 0";
+        testExpression(expression, "Infinity", expression, googleCalcPage::calculateWithKeyboardInput);
     }
 
     /**
@@ -99,16 +112,22 @@ public abstract class AbstractGoogleCalcTest {
      * Postcondition: Close browser
      */
     @Test
-    public void emptySinFunctionTest() {
+    public void emptySinFunctionMouseInputTest() {
         String expression = "sin";
-        testExpression(expression, "Error", expression + "()");
+        testExpression(expression, "Error", expression + "()", googleCalcPage::calculateWithMouseInput);
     }
 
-    private void testExpression(String expression, String expectedResult, String expectedFormula) {
-        googleCalcPage.clear();
-        googleCalcPage.enterExpression(expression);
+    @Test
+    public void emptySinFunctionKeyboardInputTest() {
+        String expression = "sin";
+        testExpression(expression, "Error", expression + "()", googleCalcPage::calculateWithKeyboardInput);
+    }
 
-        String result = googleCalcPage.calculate();
+    private void testExpression(String expression, String expectedResult, String expectedFormula,
+                                Function<String, String> calculatorFunction) {
+        googleCalcPage.clear();
+
+        String result = calculatorFunction.apply(expression);
 
         Assert.assertEquals(expectedResult, result);
         Assert.assertEquals(excludeSeparators(expectedFormula), excludeSeparators(googleCalcPage.getFormula()));

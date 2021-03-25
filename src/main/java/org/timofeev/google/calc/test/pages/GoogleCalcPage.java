@@ -1,11 +1,12 @@
 package org.timofeev.google.calc.test.pages;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -61,9 +62,9 @@ public class GoogleCalcPage extends BasePage {
     private static WebElement ac;
 
     @FindBy(id = "cwos")
-    private static WebElement result;
+    private static WebElement calcMainViewPort;
     @FindBy(className = "vUGUtc")
-    private static WebElement formula;
+    private static WebElement formulaViewPort;
 
     private final Map<String, Runnable> clickMethodByValue = Map.ofEntries(
             Map.entry("1", () -> one.click()),
@@ -91,26 +92,40 @@ public class GoogleCalcPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void enterExpression(String expression) {
+    public String calculateWithKeyboardInput(String expression) {
+        calcMainViewPort.click();
+
+        String modExpression = expression.replaceAll("\\s", "");
+
+        Actions actionProvider = new Actions(driver);
+        Action keydown = actionProvider.sendKeys(modExpression + Keys.ENTER).build();
+        keydown.perform();
+
+        return calcMainViewPort.getText();
+    }
+
+    public String calculateWithMouseInput(String expression) {
         String modExpression = expression.replace("sin", "s"); //todo also replace cos, tg ... etc
+
         Stream.of(modExpression.split(""))
                 .filter(value -> !" ".equals(value))
                 .forEach(value -> clickMethodByValue.get(value).run());
+        equal.click();
+
+        return calcMainViewPort.getText();
+    }
+
+    public String getFormula() {
+        return formulaViewPort.getText()
+                .replace('÷', '/')
+                .replace('×', '*')
+                .replace('=', ' ');
     }
 
     public void clear() {
         if (!clickToAC()) {
             ce.click();
         }
-    }
-
-    public String calculate() {
-        equal.click();
-        return result.getText();
-    }
-
-    public String getFormula() {
-        return formula.getText().replace('=', ' ');
     }
 
     private boolean clickToAC() {
